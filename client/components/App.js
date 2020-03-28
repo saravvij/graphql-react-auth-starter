@@ -5,7 +5,7 @@ export default function App(props) {
   return (
     <div>
       <Header />
-      {props.children}
+      <main className="container">{props.children}</main>
     </div>
   );
 }
