@@ -17,7 +17,6 @@ export default class AuthForm extends React.Component {
 
   render() {
     const { buttonLabel = "Submit", errors } = this.props;
-    console.log('errors in authform', errors);
     return (
       <div className="row">
         <form className="col s12" onSubmit={this.handleOnSubmit}>

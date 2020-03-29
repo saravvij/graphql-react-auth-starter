@@ -12,9 +12,14 @@ class Signup extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentWillUpdate(nextProps) {
+    if (!this.props.data.currentUser && nextProps.data.currentUser) {
+      hashHistory.push("/dashboard");
+    }
+  }
+
   onSubmit({ email, password }) {
     event.preventDefault();
-    console.log(event);
     this.props
       .mutate({
         variables: {
@@ -22,11 +27,7 @@ class Signup extends Component {
           password
         },
         refetchQueries: [{ query }]
-      })
-      .then(() => {
-        hashHistory.push("/");
-      })
-      .catch(res => {
+      }).catch(res => {
         const errors = res.graphQLErrors.map(error => error.message);
         this.setState({ errors });
       });
@@ -48,4 +49,6 @@ class Signup extends Component {
   }
 }
 
-export default graphql(signupMutation)(Signup);
+export default graphql(query)(
+  graphql(signupMutation)(Signup)
+);

@@ -6,6 +6,8 @@ import { Router, hashHistory, Route, IndexRoute } from "react-router";
 import App from "./components/App";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Dashboard from './components/Dashboard';
+import requireAuth from './components/requireAuth';
 
 // The below settings might not need for later ApolloClient for passing cookies
 //6528218
@@ -26,8 +28,9 @@ const Root = () => {
     <ApolloProvider client={client}>
       <Router history={hashHistory}>
         <Route path="/" component={App}>
-          <Route path="/login" component={Login}></Route>
-          <Route path="/signup" component={Signup}></Route>
+          <Route path="login" component={Login}></Route>
+          <Route path="signup" component={Signup}></Route>
+          <Route path="dashboard" component={requireAuth(Dashboard)}></Route>
         </Route>
       </Router>
     </ApolloProvider>
